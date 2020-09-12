@@ -8,7 +8,7 @@ const swaggerUi = require('swagger-ui-express');
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: ["http://localhost:8081","http://localhost:3000"]
 };
 
 
@@ -75,6 +75,8 @@ require('./app/routes/user.routes')(app);
 const db = require("./app/models");
 // db.sequelize.sync(); // for production
 const Role = db.role;
+const User = db.user;
+const bcrypt = require("bcryptjs");
 
 db.sequelize.sync({ force: true }).then(() => {
   console.log('Drop and Resync Db');
@@ -89,11 +91,21 @@ function initial() {
 
   Role.create({
     id: 2,
-    name: "moderator"
+    name: "merchant"
   });
 
   Role.create({
     id: 3,
     name: "admin"
   });
+  
+  User.create({
+    username: 'udin@yopmail.com',
+    email: 'udin@yopmail.com',
+    password: bcrypt.hashSync('123', 8),
+    registerfrom: 'Application',
+    isactive: 1
+  }).then(user => {
+    user.setRoles([1, 2, 3]);
+  })
 }

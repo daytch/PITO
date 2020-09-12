@@ -13,8 +13,7 @@ module.exports = function (app) {
   
   /**
 * @swagger
-* /api/auth/signup:
-
+* /v1/auth/signup:
 *   post:
 *     tags:
 *       - Authentication
@@ -68,13 +67,12 @@ module.exports = function (app) {
 *               type: string
 *               example: 0858 6666 1326
 */
-    app.post("/api/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
+    app.post("/v1/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 
     
   /**
 * @swagger
-* /api/auth/signin:
-
+* /v1/auth/signin:
 *   post:
 *     tags:
 *       - Authentication
@@ -90,13 +88,13 @@ module.exports = function (app) {
 *           $ref: '#/definitions/auth'
 *           type: object
 *           properties:
-*             username:
+*             email:
 *               type: string
 *             password:
 *               type: string
 *               format: password
 *         required:
-*           - username
+*           - email
 *           - password
 *     responses:
 *       200:
@@ -116,5 +114,5 @@ module.exports = function (app) {
 *               type: string
 *               example: 123
 */
-    app.post("/api/auth/signin", controller.signin);
+    app.post("/v1/auth/signin", controller.signin);
 };

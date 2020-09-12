@@ -3,35 +3,46 @@ const config = require('./../services/config');
 
 const API_URL = config.API_URL;
 
-class AuthService{
-    login(username,password){
-        return axios
-        .post(API_URL+"auth/signin",{
-            username,
-            password
+class AuthService {
+    loginSocialMedia(name, accessToken) {
+        let url = API_URL + "auth/login" + name;
+        return axios.post(url, {
+            accessToken
         })
-        .then(response => {
-            if(response.data.accessToken){
-                localStorage.setItem("user",JSON.stringify(response.data));
-            }
-
-            return response.data;
-        });
+            .then(() => {
+                localStorage.setItem("user", JSON.stringify({ name: accessToken }));
+                return accessToken;
+            })
     }
 
-    logout(){
+    login(email, password) {
+        return axios
+            .post(API_URL + "auth/signin", {
+                email,
+                password
+            })
+            .then(response => {
+                if (response.data.accessToken) {
+                    localStorage.setItem("user", JSON.stringify(response.data));
+                }
+
+                return response.data;
+            });
+    }
+
+    logout() {
         localStorage.removeItem("user");
     }
 
-    register(username,email,password){
-        return axios.post(API_URL+"signup",{
+    register(username, email, password) {
+        return axios.post(API_URL + "signup", {
             username,
             email,
             password
         });
     }
 
-    getCurrentUser(){
+    getCurrentUser() {
         return JSON.parse(localStorage.getItem('user'));
     }
 }

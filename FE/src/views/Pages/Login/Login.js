@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import AuthService from './../../../services/auth.service';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
 const required = value => {
   if (!value) {
@@ -13,22 +15,30 @@ const required = value => {
   }
 };
 
+const responseFacebook = (response) => {
+  console.log(response);
+}
+
+const responseGoogle = (response) => {
+  console.log(response);
+}
+
 class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
-      username: "",
+      email: "",
       password: "",
       loading: false,
       message: ""
     };
   }
 
-  onChangeUsername(e) {
+  onChangeEmail(e) {
     this.setState({
       username: e.target.value
     });
@@ -48,27 +58,27 @@ class Login extends Component {
       loading: true
     });
 
-   // this.form.validateAll();
+    // this.form.validateAll();
 
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.history.push("/dashboard");
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+    AuthService.login(this.state.username, this.state.password).then(
+      () => {
+        this.props.history.push("/dashboard");
+        window.location.reload();
+      },
+      error => {
+        const resMessage =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          error.toString();
 
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
-        }
-      );
+        this.setState({
+          loading: false,
+          message: resMessage
+        });
+      }
+    );
   }
 
 
@@ -81,12 +91,12 @@ class Login extends Component {
               <CardGroup>
                 <Card className="p-4">
                   <CardBody>
-                    <Form 
+                    <Form
                       onSubmit={this.handleLogin}
                       ref={c => {
                         this.form = c;
                       }}
-                      >
+                    >
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -95,9 +105,9 @@ class Login extends Component {
                             <i className="icon-user"></i>
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input type="text" placeholder="Username" autoComplete="username"
-                        onChange={this.onChangeUsername}
-                        validations={[required]}/>
+                        <Input type="email" placeholder="Email" autoComplete="email"
+                          onChange={this.onChangeEmail}
+                          validations={[required]} />
                       </InputGroup>
                       <InputGroup className="mb-4">
                         <InputGroupAddon addonType="prepend">
@@ -106,8 +116,8 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input type="password" placeholder="Password" autoComplete="current-password"
-                        onChange={this.onChangePassword}
-                        validations={[required]} />
+                          onChange={this.onChangePassword}
+                          validations={[required]} />
                       </InputGroup>
                       <Row>
                         <Col xs="6">
@@ -115,6 +125,27 @@ class Login extends Component {
                         </Col>
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">Forgot password?</Button>
+                        </Col>
+                      </Row>
+                      <hr></hr>
+                      <Row>
+                        <Col xs="6">
+                          <FacebookLogin buttonStyle={{padding:"6px"}}  
+                            appId="324949942140147" //APP ID NOT CREATED YET
+                            fields="name,email,picture"
+                            callback={responseFacebook}
+                            icon="fa-facebook"
+                            textButton="FACEBOOK"
+                            autoLoad={false}
+                          />
+                        </Col>
+                        <Col xs="6" className="text-right">
+                          <GoogleLogin
+                            clientId="1005311277215-usto3jvhuu9uhqr6ngtj5ta9h9tuhj8a.apps.googleusercontent.com" //CLIENTID NOT CREATED YET
+                            buttonText="GOOGLE"
+                            onSuccess={responseGoogle}
+                            onFailure={responseGoogle}
+                          />
                         </Col>
                       </Row>
                     </Form>

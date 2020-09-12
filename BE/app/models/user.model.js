@@ -14,20 +14,6 @@ module.exports = (sequelize, Sequelize) => {
         password: {
             type: Sequelize.STRING
         },
-        created: {
-            type: Sequelize.DATE,
-            allowNull: false
-        },
-        createdby: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        modified: {
-            type: Sequelize.DATE
-        },
-        modifiedby: {
-            type: Sequelize.STRING
-        },
         isactive: {
             type: Sequelize.STRING,
             allowNull: false
