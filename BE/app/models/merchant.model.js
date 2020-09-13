@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("users", {
+    const Merchant = sequelize.define("vw_merchant", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -10,15 +10,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         email: {
             type: Sequelize.STRING
-        },
-        password: {
-            type: Sequelize.STRING
-        },
-        isactive: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false
         }
     });
 
-    return User;
+    return Merchant;
 };

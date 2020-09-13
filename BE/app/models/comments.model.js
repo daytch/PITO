@@ -1,17 +1,17 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define("users", {
+    const Comment = sequelize.define("comments", {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        username: {
-            type: Sequelize.STRING
+        videoId: {
+            type: Sequelize.INTEGER
         },
-        email: {
-            type: Sequelize.STRING
+        userId: {
+            type: Sequelize.INTEGER
         },
-        password: {
+        text: {
             type: Sequelize.STRING
         },
         isactive: {
@@ -20,5 +20,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return User;
+    return Comment;
 };

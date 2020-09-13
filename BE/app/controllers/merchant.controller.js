@@ -1,5 +1,9 @@
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
+const db = require("../models");
+const config = require("../config/auth.config");
+const User = db.user;
+
+exports.merchantList = (req, res) => {
+    // User.find({where})
 };
 
 exports.userBoard = (req, res) => {

@@ -69,19 +69,19 @@ app.listen(PORT, () => {
 
 // routes
 require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+require('./app/routes/merchant.routes')(app);
 
 
 const db = require("./app/models");
-// db.sequelize.sync(); // for production
+db.sequelize.sync(); // for production
 const Role = db.role;
 const User = db.user;
 const bcrypt = require("bcryptjs");
 
-db.sequelize.sync({ force: true }).then(() => {
-  console.log('Drop and Resync Db');
-  initial();
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log('Drop and Resync Db');
+//   initial();
+// });
 
 function initial() {
   Role.create({
