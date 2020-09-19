@@ -1,16 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 const config = require('./../services/config');
 
 const API_URL = config.API_URL;
 
 class AuthService {
     loginSocialMedia(name, accessToken) {
-        let url = API_URL + "auth/login" + name;
-        return axios.post(url, {
+        return axios.post(API_URL + "auth/login" + name, {
             accessToken
         })
             .then(() => {
-                localStorage.setItem("user", JSON.stringify({ name: accessToken }));
+                localStorage.setItem("accessToken", { name: accessToken });
                 return accessToken;
             })
     }
@@ -22,8 +21,13 @@ class AuthService {
                 password
             })
             .then(response => {
+                debugger;
                 if (response.data.accessToken) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
+                    localStorage.setItem("accessToken", response.data.accessToken);
+                    localStorage.setItem("email", response.data.email);
+                    localStorage.setItem("id", response.data.id);
+                    localStorage.setItem("username", response.data.username);
+                    localStorage.setItem("roles", response.data.roles);
                 }
 
                 return response.data;
@@ -31,7 +35,7 @@ class AuthService {
     }
 
     logout() {
-        localStorage.removeItem("user");
+        localStorage.clear();
     }
 
     register(username, email, password) {
@@ -43,7 +47,7 @@ class AuthService {
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        return localStorage.getItem('username');
     }
 }
 

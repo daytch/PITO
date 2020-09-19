@@ -47,7 +47,6 @@ if (dbConfig.swagger) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 }
 
-
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -104,7 +103,7 @@ function initial() {
     email: 'udin@yopmail.com',
     password: bcrypt.hashSync('123', 8),
     registerfrom: 'Application',
-    isactive: 1
+    isactive: '1'
   }).then(user => {
     user.setRoles([1, 2, 3]);
   })

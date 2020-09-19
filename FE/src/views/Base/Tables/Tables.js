@@ -1,28 +1,53 @@
 import React, { Component } from 'react';
-import { Badge, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Table } from 'reactstrap';
-import axios from "axios";
-const config = require('./../../../services/config');
-
-const API_URL = config.API_URL;
+import { Table, Card, CardBody, CardHeader, Col, Pagination, PaginationItem, PaginationLink, Row, Button } from 'reactstrap';
+import axios from "./../../../services/axios.config";
 
 
 class Tables extends Component {
   constructor(props) {
     super(props);
+    this.disableMerchant = this.handleDisableMerchant(this);
+    this.viewMerchant = this.handleViewMerchant(this);
+    this.addLivestream = this.handleAddLivestream(this);
+    this.editMerchant = this.handleEditMerchant(this);
     this.state = {
-      data: []
+      data: [],
+      merchants: []
     };
   }
+
+  handleDisableMerchant(e) {
+    // e.preventDefault();
+    console.log("handleDisableMerchant");
+  }
+
+  handleViewMerchant(e) {
+    // e.preventDefault();
+    console.log("handleViewMerchant");
+  }
+
+  handleAddLivestream(e) {
+    // e.preventDefault();
+    console.log("handleAddLivestream");
+  }
+
+  handleEditMerchant(e) {
+    // e.preventDefault();
+    console.log("handleEditMerchant");
+  }
+
   componentDidMount() {
-    axios.get(API_URL + 'merchant').then(response => {
-      debugger;
+    axios.get('merchant').then(res => {
       this.setState({
-        data: response
+        merchants: res.data
       })
-    });
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
+    let headerElement = ['id', 'username', 'email', 'action'];
     return (
       <div className="animated fadeIn">
 
@@ -33,58 +58,36 @@ class Tables extends Component {
                 <i className="fa fa-align-justify"></i> Combined All Table
               </CardHeader>
               <CardBody>
-                <Table hover bordered striped responsive size="sm">
+
+                <Table id='employee' className='table table-sm table-bordered table-striped table-hover'>
                   <thead>
                     <tr>
-                      <th>Username</th>
-                      <th>Date registered</th>
-                      <th>Role</th>
-                      <th>Status</th>
+                      {headerElement.map((key, index) => {
+                        return <th key={index}><center>{key.toUpperCase()}</center></th>
+                      })}
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Vishnu Serghei</td>
-                      <td>2012/01/01</td>
-                      <td>Member</td>
-                      <td>
-                        <Badge color="success">Active</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Zbyněk Phoibos</td>
-                      <td>2012/02/01</td>
-                      <td>Staff</td>
-                      <td>
-                        <Badge color="danger">Banned</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Einar Randall</td>
-                      <td>2012/02/01</td>
-                      <td>Admin</td>
-                      <td>
-                        <Badge color="secondary">Inactive</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Félix Troels</td>
-                      <td>2012/03/01</td>
-                      <td>Member</td>
-                      <td>
-                        <Badge color="warning">Pending</Badge>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Aulus Agmundr</td>
-                      <td>2012/01/21</td>
-                      <td>Staff</td>
-                      <td>
-                        <Badge color="success">Active</Badge>
-                      </td>
-                    </tr>
+                    {this.state.merchants && this.state.merchants.map(({ id, username, email }) => {
+                      return <tr key={id}>
+                        <td><center>{id}</center></td>
+                        <td>{username}</td>
+                        <td>{email}</td>
+                        <td className='opration'>
+                          <center>
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                              <Button size="sm" color="success" className="btn-pill" onClick={this.handleViewMerchant}>View</Button>
+                              <Button size="sm" color="warning" className="btn-pill" onClick={this.handleEditMerchant}>Edit</Button>
+                              <Button size="sm" color="primary" className="btn-pill" onClick={this.handleAddLivestream}>Add</Button>
+                              <Button size="sm" color="danger" className="btn-pill" onClick={this.handleDisableMerchant}>Disable</Button>
+                            </div>
+                          </center>
+                        </td>
+                      </tr>
+                    })}
                   </tbody>
                 </Table>
+
                 <nav>
                   <Pagination>
                     <PaginationItem><PaginationLink previous tag="button">Prev</PaginationLink></PaginationItem>

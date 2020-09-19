@@ -39,6 +39,8 @@ const User = React.lazy(() => import('./views/Users/User'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
 const Register = React.lazy(() => import('./views/Pages/Register'));
 
+const Merchant = React.lazy(() => import('./views/Pages/Merchant'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -83,7 +85,7 @@ const routes = [
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/pages/event', name: 'Event Listing', component: Page404 },
-  { path: '/pages/merchant', name: 'Merchant List', component: Page404 },
+  { path: '/pages/merchant', name: 'Merchant List', component: Merchant },
   { path: '/pages/user', name: 'User List', component: Page404 },
   { path: '/pages/analytics', name: 'Analytics', component: Charts },
   { path: '/pages/feedback', name: 'Feedback', component: Page404 },
