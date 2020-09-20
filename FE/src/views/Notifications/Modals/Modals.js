@@ -19,7 +19,7 @@ class Modals extends Component {
     this.toggle = this.toggle.bind(this);
     this.toggleLarge = this.toggleLarge.bind(this);
     this.toggleSmall = this.toggleSmall.bind(this);
-    this.togglePrimary = this.togglePrimary.bind(this);
+    this.togglePrimary = this.handletogglePrimary.bind(this);
     this.toggleSuccess = this.toggleSuccess.bind(this);
     this.toggleWarning = this.toggleWarning.bind(this);
     this.toggleDanger = this.toggleDanger.bind(this);
@@ -44,7 +44,7 @@ class Modals extends Component {
     });
   }
 
-  togglePrimary() {
+  handletogglePrimary() {
     this.setState({
       primary: !this.state.primary,
     });
@@ -136,7 +136,7 @@ class Modals extends Component {
 
                 <hr />
 
-                <Button color="primary" onClick={this.togglePrimary} className="mr-1">Primary modal</Button>
+                <Button color="primary" onClick={this.handletogglePrimary} className="mr-1">Primary modal</Button>
                 <Modal isOpen={this.state.primary} toggle={this.togglePrimary}
                        className={'modal-primary ' + this.props.className}>
                   <ModalHeader toggle={this.togglePrimary}>Modal title</ModalHeader>

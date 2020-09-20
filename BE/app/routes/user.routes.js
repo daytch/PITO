@@ -1,5 +1,5 @@
 const { authJwt } = require("../middlewares");
-const controller = require("../controllers/merchant.controller");
+const controller = require("../controllers/user.controller");
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -34,11 +34,5 @@ module.exports = function (app) {
   *       500:
   *         description: something error on system
   */
-    app.get("/v1/merchant", controller.merchantList);
-
-    app.delete("/v1/merchant", controller.disableMerchant);
-
-    app.get("/v1/test/mod", [authJwt.verifyToken, authJwt.isMerchant], controller.moderatorBoard);
-
-    app.get("/v1/test/admin", [authJwt.verifyToken, authJwt.isAdmin], controller.adminBoard);
+    app.get("/v1/user", controller.userList);
 };
