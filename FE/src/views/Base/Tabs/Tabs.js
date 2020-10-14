@@ -82,6 +82,7 @@ class Tabs extends Component {
   }
 
   toggle(tabPane, tab) {
+    ;
     const newArray = this.state.activeTab.slice()
     newArray[tabPane] = tab
     this.setState({

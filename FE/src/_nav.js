@@ -10,8 +10,8 @@ export const navAdmin = {
       },
     },
     {
-      name: 'Event Listing',
-      url: '/pages/event',
+      name: 'Livestream Listing',
+      url: '/pages/livestream',
       icon: 'icon-docs',
     },
     {
@@ -30,9 +30,14 @@ export const navAdmin = {
       icon: 'icon-graph',
     },
     {
-      name: 'Feedback',
-      url: '/pages/feedback',
-      icon: 'icon-like',
+      name: 'Ticket Support',
+      url: '/pages/support',
+      icon: 'icon-bubbles',
+    },
+    {
+      name: 'Categories',
+      url: '/pages/category',
+      icon: 'icon-folder-alt',
     }
   ],
 };
@@ -51,7 +56,7 @@ export const navMerchant = {
     {
       name: 'Support',
       url: '/pages/support',
-      icon: 'icon-docs',
+      icon: 'icon-bubbles',
     }
   ],
 };

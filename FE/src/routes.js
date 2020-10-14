@@ -42,6 +42,8 @@ const Register = React.lazy(() => import('./views/Pages/Register'));
 const Merchant = React.lazy(() => import('./views/Pages/Merchant'));
 const Forgot = React.lazy(() => import('./views/Pages/Forgot'));
 const Support = React.lazy(() => import('./views/Pages/Support'));
+const Category = React.lazy(() => import('./views/Pages/Category'));
+const Livestream = React.lazy(() => import('./views/Pages/Livestream'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -94,6 +96,8 @@ const routes = [
   { path: '/pages/register', name: 'Register', component: Register },
   { path: '/pages/forgot', name: 'Forgot Password', component: Forgot },
   { path: '/pages/support', name: 'Support', component: Support },
+  { path: '/pages/category', name: 'Category', component: Category },
+  { path: '/pages/livestream', name: 'Livestream Listing', component: Livestream },
 ];
 
 export default routes;
